@@ -1,5 +1,5 @@
 # Pull base image
-FROM alpine:3.6
+FROM alpine:3.4
 LABEL Description="Concourse Ansible resource" Vendor="SpringerNature Platform Engineering" Version="1.0"
 MAINTAINER SpringerNature Platform Engineering platform-engineering@springernature.com
 
@@ -16,7 +16,7 @@ RUN ln -s /lib /lib64 \
             xmlsec \
             yaml \
             libc6-compat \
-            python3 \
+            python \
             libxml2 \
             py-lxml \
             py-pip \
@@ -28,7 +28,7 @@ RUN ln -s /lib /lib64 \
         apk --upgrade add --no-cache --virtual \
             build-dependencies \
             build-base \
-            python3-dev \
+            python-dev \
             libffi-dev \
             openssl-dev \
             linux-headers \
@@ -36,12 +36,12 @@ RUN ln -s /lib /lib64 \
 
 # Ansible installation
 ADD requirements.txt /opt/
-RUN pip3 install --upgrade --no-cache-dir -r /opt/requirements.txt
+RUN pip install --upgrade --no-cache-dir -r /opt/requirements.txt
 
 RUN apk del \
         build-dependencies \
         build-base \
-        python3-dev \
+        python-dev \
         libffi-dev \
         openssl-dev \
         linux-headers \
